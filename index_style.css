@@ -1,0 +1,127 @@
+   @font-face {
+  font-family: "JapaneseFont";
+  src: url("../fonts/x12y16pxMaruMonica.ttf");
+}
+   @font-face {
+        font-family:"Myfont";
+        src:url("../fonts/reindeer-typewriter.ttf");
+    }
+body {
+  #englishMessage {
+  font-family: "Myfont", sans-serif;
+}
+
+#japaneseMessage {
+  margin-top: 8px;
+  font-family: "JapaneseFont", "Yu Gothic", sans-serif;
+}
+    margin:0;
+    min-height: 100vh;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    background-color: black;
+    font-family:"Myfont",sans-serif;
+}
+    #MyButton {
+        width:200px;
+        cursor:pointer;
+    }
+    #clickArea {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+#MyButton {
+  display: block;
+  width: 200px;
+  cursor: pointer;
+}
+
+#message {
+  white-space: pre-line;
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 15px;
+  width: max-content;
+  max-width: 90vw;
+  text-align: center;
+
+#englishMessage,
+#japaneseMessage {
+  color: #55cfff;
+
+  text-shadow:
+    0 0 5px #ffffff,
+    0 0 10px #55cfff,
+    0 0 20px #388ad1;
+
+  animation: blueGlow 0.5s ease-in-out infinite alternate;
+}
+
+}
+#credits {
+  position: fixed;
+  bottom: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+
+  width: max-content;
+  max-width: 90vw;
+  text-align: center;
+  flex-wrap: nowrap;
+white-space: nowrap;
+
+  font-size: 12px;
+}
+
+#credits a {
+  color: #55cfff;
+  text-decoration: none;
+
+  text-shadow:
+    0 0 5px #55cfff,
+    0 0 10px #0088ff;
+}
+
+#credits a:hover {
+  text-decoration: underline;
+}
+#topText {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  width: 90%;
+  text-align: center;
+
+  color: #55cfff;
+  font-family: "Myfont", sans-serif;
+}
+#topText h1 {
+  margin: 0;
+  font-size: 15px;
+  color: #55cfff;
+
+  text-shadow:
+    0 0 5px #ffffff,
+    0 0 10px #55cfff,
+    0 0 20px #0088ff;
+
+  animation: blueGlow 0.8s ease-in-out infinite alternate;
+}
+
+#topText p {
+  margin: 8px 0 0;
+  font-size: 14px;
+}
