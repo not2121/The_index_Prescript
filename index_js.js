@@ -7,6 +7,9 @@ const volumeValue = document.getElementById("volumeValue");
 const volumeStorageKey = "theIndex.clickSoundVolume";
 let audioContext;
 let volumeGain;
+let soundBufferPromise;
+let activeSoundSource;
+let soundRequest = 0;
 
 function updateVolume(volume) {
   const level = volume / 100;
@@ -23,43 +26,80 @@ function updateVolume(volume) {
   volumeValue.value = `${volume}%`;
 }
 
-function playClickSound() {
-  try {
-    if (!audioContext) {
-      const AudioContextClass = window.AudioContext || window.webkitAudioContext;
-      // file:// の直接プレビューでは、音声の読み込み制限を避けて従来の再生を使う。
-      const isLocalFile = window.location?.protocol === "file:";
-
-      if (AudioContextClass && !isLocalFile) {
-        // 最初のクリックで音の経路を作る。iOSでは volume の代わりに GainNode で調整する。
-        const context = new AudioContextClass();
-        const gain = context.createGain();
-        gain.gain.value = Number(volumeControl.value) / 100;
-        const source = context.createMediaElementSource(sound);
-        source.connect(gain);
-        gain.connect(context.destination);
-        audioContext = context;
-        volumeGain = gain;
-
-        // 音量調整を GainNode に任せ、二重に小さくならないようにする。
-        sound.volume = 1;
-        updateVolume(Number(volumeControl.value));
-      }
-    }
-
-    if (audioContext && audioContext.state !== "running") {
-      audioContext.resume().catch((error) => {
-        console.warn("Audio could not resume:", error);
+function loadSoundBuffer() {
+  if (!soundBufferPromise) {
+    // 音声データは一度読み込んで保存し、次のクリックでも使い回す。
+    soundBufferPromise = fetch(sound.currentSrc || sound.src)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`Click sound could not be loaded: ${response.status}`);
+        }
+        return response.arrayBuffer();
+      })
+      .then((data) => audioContext.decodeAudioData(data))
+      .catch((error) => {
+        soundBufferPromise = undefined;
+        throw error;
       });
-    }
-  } catch (error) {
-    console.warn("Web Audio could not be initialized:", error);
   }
 
-  sound.currentTime = 0;
-  sound.play().catch((error) => {
+  return soundBufferPromise;
+}
+
+async function playClickSound() {
+  const request = ++soundRequest;
+
+  try {
+    // 連打した場合は、前の音を止めてから次の音を鳴らす。
+    if (activeSoundSource) {
+      activeSoundSource.stop();
+      activeSoundSource.disconnect();
+      activeSoundSource = undefined;
+    }
+
+    const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+    const isLocalFile = window.location?.protocol === "file:";
+
+    // file:// の直接プレビューでは、従来の再生を使う。
+    if (!AudioContextClass || isLocalFile) {
+      sound.currentTime = 0;
+      await sound.play();
+      return;
+    }
+
+    if (!audioContext) {
+      audioContext = new AudioContextClass();
+      volumeGain = audioContext.createGain();
+      volumeGain.gain.value = Number(volumeControl.value) / 100;
+      volumeGain.connect(audioContext.destination);
+    }
+
+    // resume はタップ直後に呼び、再生準備と読み込みの両方が終わるのを待つ。
+    const resumed = audioContext.state === "running"
+      ? Promise.resolve()
+      : audioContext.resume();
+    const [buffer] = await Promise.all([loadSoundBuffer(), resumed]);
+
+    // 読み込み中に別のクリックがあった場合は、最新のクリックだけを再生する。
+    if (request !== soundRequest || Number(volumeControl.value) === 0) {
+      return;
+    }
+
+    const source = audioContext.createBufferSource();
+    source.buffer = buffer;
+    source.playbackRate.value = 1;
+    source.connect(volumeGain);
+    source.onended = () => {
+      source.disconnect();
+      if (activeSoundSource === source) {
+        activeSoundSource = undefined;
+      }
+    };
+    source.start(0, 0);
+    activeSoundSource = source;
+  } catch (error) {
     console.warn("Click sound could not be played:", error);
-  });
+  }
 }
 
 let initialVolume = Number(volumeControl.value);

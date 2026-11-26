@@ -9,11 +9,16 @@
 body {
   #englishMessage {
   font-family: "Myfont", sans-serif;
+  line-height: 1.8;
+  letter-spacing: 0.05em;
+  word-spacing: 0.12em;
 }
 
 #japaneseMessage {
-  margin-top: 8px;
+  margin-top: 16px;
   font-family: "JapaneseFont", "Yu Gothic", sans-serif;
+  line-height: 1.9;
+  letter-spacing: 0.08em;
 }
     margin:0;
     min-height: 100vh;
@@ -22,6 +27,8 @@ body {
     align-items: center;
     background-color: black;
     font-family:"Myfont",sans-serif;
+    line-height: 1.65;
+    letter-spacing: 0.04em;
 }
     #MyButton {
         width:200px;
@@ -46,10 +53,11 @@ body {
   top: 100%;
   left: 50%;
   transform: translateX(-50%);
-  margin-top: 15px;
+  margin-top: 24px;
   width: max-content;
   max-width: 90vw;
   text-align: center;
+  overflow-wrap: anywhere;
 
 #englishMessage,
 #japaneseMessage {
@@ -74,7 +82,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 8px;
+  gap: 10px 16px;
 
   width: max-content;
   max-width: 90vw;
@@ -82,7 +90,8 @@ body {
   flex-wrap: nowrap;
 white-space: nowrap;
 
-  font-size: 12px;
+  font-size: 0.875rem;
+  line-height: 1.9;
 }
 
 #credits a {
@@ -145,7 +154,8 @@ white-space: nowrap;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2px;
+  gap: 4px;
+  line-height: 1.4;
   white-space: nowrap;
 }
 
@@ -219,9 +229,39 @@ white-space: nowrap;
 /* 画面の横幅が600px以下のときに適用する */
 @media (max-width: 600px) {
 
+  /* 長い文章でも重ならないよう、スマホでは上から順に配置する。 */
+  body {
+    box-sizing: border-box;
+    min-height: 100svh;
+    flex-direction: column;
+    padding: 24px 16px;
+  }
+
+  #topText {
+    position: static;
+    width: 100%;
+    transform: none;
+  }
+
+  #clickArea {
+    position: static;
+    width: 100%;
+    margin: clamp(96px, 18svh, 160px) auto 48px;
+    transform: none;
+  }
+
   /* 中央の画像を小さくする */
   #MyButton {
     width: 160px;
+    margin: 0 auto;
+  }
+
+  #message {
+    position: static;
+    width: 100%;
+    max-width: 36rem;
+    margin: 24px auto 0;
+    transform: none;
   }
 
   /* 音量バーの幅を短くする */
@@ -231,6 +271,11 @@ white-space: nowrap;
 
   /* 下のリンクを折り返せるようにする */
   #credits {
+    position: static;
+    width: 100%;
+    max-width: 36rem;
+    margin-top: auto;
+    transform: none;
     flex-wrap: wrap;
     white-space: normal;
   }
