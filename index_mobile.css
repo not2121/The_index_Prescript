@@ -1,0 +1,74 @@
+/* Mobile overrides. The media condition is declared on the link in index.html. */
+/* 長い文章でも重ならないよう、スマホでは上から順に配置する。 */
+body {
+  box-sizing: border-box;
+  min-height: 100svh;
+  flex-direction: column;
+  padding: 24px 16px;
+  line-height: 1.65;
+  letter-spacing: 0.04em;
+}
+
+body #englishMessage {
+  line-height: 1.8;
+  letter-spacing: 0.05em;
+  word-spacing: 0.12em;
+}
+
+body #japaneseMessage {
+  margin-top: 16px;
+  line-height: 1.9;
+  letter-spacing: 0.08em;
+}
+
+#volumeSettings label {
+  gap: 4px;
+  line-height: 1.4;
+}
+
+#topText {
+  position: static;
+  width: 100%;
+  transform: none;
+}
+
+#clickArea {
+  position: static;
+  width: 100%;
+  margin: clamp(96px, 18svh, 160px) auto 48px;
+  transform: none;
+}
+
+/* 中央の画像を小さくする */
+#MyButton {
+  width: 160px;
+  margin: 0 auto;
+}
+
+#message {
+  position: static;
+  width: 100%;
+  max-width: 36rem;
+  margin: 24px auto 0;
+  transform: none;
+  overflow-wrap: anywhere;
+}
+
+/* 音量バーの幅を短くする */
+#volumeControl {
+  width: 100px;
+}
+
+/* 下のリンクを折り返せるようにする */
+#credits {
+  position: static;
+  width: 100%;
+  max-width: 36rem;
+  margin-top: auto;
+  transform: none;
+  flex-wrap: wrap;
+  white-space: normal;
+  gap: 10px 16px;
+  font-size: 0.875rem;
+  line-height: 1.9;
+}
