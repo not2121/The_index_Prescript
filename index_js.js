@@ -28,7 +28,7 @@ function updateVolume(volume) {
 
 function loadSoundBuffer() {
   if (!soundBufferPromise) {
-    // 音声データは一度読み込んで保存し、次のクリックでも使い回す。
+    
     soundBufferPromise = fetch(sound.currentSrc || sound.src)
       .then((response) => {
         if (!response.ok) {
@@ -50,7 +50,7 @@ async function playClickSound() {
   const request = ++soundRequest;
 
   try {
-    // 連打した場合は、前の音を止めてから次の音を鳴らす。
+   
     if (activeSoundSource) {
       activeSoundSource.stop();
       activeSoundSource.disconnect();
@@ -60,7 +60,7 @@ async function playClickSound() {
     const AudioContextClass = window.AudioContext || window.webkitAudioContext;
     const isLocalFile = window.location?.protocol === "file:";
 
-    // file:// の直接プレビューでは、従来の再生を使う。
+    
     if (!AudioContextClass || isLocalFile) {
       sound.currentTime = 0;
       await sound.play();
@@ -74,13 +74,13 @@ async function playClickSound() {
       volumeGain.connect(audioContext.destination);
     }
 
-    // resume はタップ直後に呼び、再生準備と読み込みの両方が終わるのを待つ。
+    
     const resumed = audioContext.state === "running"
       ? Promise.resolve()
       : audioContext.resume();
     const [buffer] = await Promise.all([loadSoundBuffer(), resumed]);
 
-    // 読み込み中に別のクリックがあった場合は、最新のクリックだけを再生する。
+    
     if (request !== soundRequest || Number(volumeControl.value) === 0) {
       return;
     }
@@ -118,7 +118,7 @@ try {
     initialVolume = savedVolume;
   }
 } catch {
-  // 音量の保存が許可されていない環境でも、その場で調整できるようにする。
+ 
 }
 
 updateVolume(initialVolume);
@@ -130,7 +130,7 @@ volumeControl.addEventListener("input", () => {
   try {
     localStorage.setItem(volumeStorageKey, String(volume));
   } catch {
-    // 保存できなくても、現在の音量は反映されている。
+   
   }
 });
 
