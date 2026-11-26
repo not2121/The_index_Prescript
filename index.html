@@ -3,16 +3,25 @@
     <head>
         <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; media-src 'self'; font-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none';">
         <meta charset="UTF-8">
-        <link rel="icon" type="image/png" href="./IndexProselytesIcon.png?v=2">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" type="image/png" href="./SomeonesDevice.png">
     <link rel="stylesheet" href="index_style.css">
         <title>The_index</title>
     </head>
     <body>
       <header id="topText">
   <h1>Unofficial</h1>
+  <div id="volumeSettings">
+    <label for="volumeControl">
+      <span>音量</span>
+      <span class="volumeEnglish">Sound</span>
+    </label>
+    <input id="volumeControl" type="range" min="0" max="100" step="1" value="100" aria-valuetext="100%">
+    <output id="volumeValue" for="volumeControl" aria-live="off">100%</output>
+  </div>
 </header>
      <div id = "clickArea">
-       <img id="MyButton" src="pp.icon.png" alt="click">
+       <img id="MyButton" src="SomeonesDevice.png" alt="click">
        <div id="message">
   <div id="englishMessage"></div>
   <div id="japaneseMessage"></div>

@@ -2,6 +2,48 @@ const button=document.getElementById("MyButton");
 const englishMessage =document.getElementById("englishMessage");
 const japaneseMessage =document.getElementById("japaneseMessage");
 const sound=document.getElementById("clickSound");
+const volumeControl = document.getElementById("volumeControl");
+const volumeValue = document.getElementById("volumeValue");
+const volumeStorageKey = "theIndex.clickSoundVolume";
+
+function updateVolume(volume) {
+  sound.volume = volume / 100;
+  volumeControl.value = String(volume);
+  volumeControl.setAttribute("aria-valuetext", `${volume}%`);
+  volumeValue.value = `${volume}%`;
+}
+
+let initialVolume = Number(volumeControl.value);
+
+try {
+  const storedVolume = localStorage.getItem(volumeStorageKey);
+  const savedVolume = Number(storedVolume);
+
+  if (
+    storedVolume !== null &&
+    storedVolume.trim() !== "" &&
+    Number.isInteger(savedVolume) &&
+    savedVolume >= 0 &&
+    savedVolume <= 100
+  ) {
+    initialVolume = savedVolume;
+  }
+} catch {
+  // 音量の保存が許可されていない環境でも、その場で調整できるようにする。
+}
+
+updateVolume(initialVolume);
+
+volumeControl.addEventListener("input", () => {
+  const volume = Number(volumeControl.value);
+  updateVolume(volume);
+
+  try {
+    localStorage.setItem(volumeStorageKey, String(volume));
+  } catch {
+    // 保存できなくても、現在の音量は反映されている。
+  }
+});
 
 const finalTexts = [
   {

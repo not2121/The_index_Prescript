@@ -53,15 +53,16 @@ body {
 
 #englishMessage,
 #japaneseMessage {
-  color: #55cfff;
+  color: #74b3ee;
 
   text-shadow:
     0 0 5px #ffffff,
-    0 0 10px #55cfff,
-    0 0 20px #388ad1;
+    0 0 10px #0059a7,
+    0 0 20px #0059a7;
 
   animation: blueGlow 0.5s ease-in-out infinite alternate;
 }
+
 
 }
 #credits {
@@ -85,12 +86,12 @@ white-space: nowrap;
 }
 
 #credits a {
-  color: #55cfff;
+  color: #74b3ee;
   text-decoration: none;
 
   text-shadow:
-    0 0 5px #55cfff,
-    0 0 10px #0088ff;
+    0 0 5px #0059a7,
+    0 0 10px #0059a7;
 }
 
 #credits a:hover {
@@ -105,18 +106,18 @@ white-space: nowrap;
   width: 90%;
   text-align: center;
 
-  color: #55cfff;
+  color: hwb(0 99% 1%);
   font-family: "Myfont", sans-serif;
 }
 #topText h1 {
   margin: 0;
   font-size: 15px;
-  color: #55cfff;
+  color: #74b3ee;
 
   text-shadow:
     0 0 5px #ffffff,
-    0 0 10px #55cfff,
-    0 0 20px #0088ff;
+    0 0 10px #0059a7,
+    0 0 20px #0059a7;
 
   animation: blueGlow 0.8s ease-in-out infinite alternate;
 }
@@ -124,4 +125,113 @@ white-space: nowrap;
 #topText p {
   margin: 8px 0 0;
   font-size: 14px;
+}
+
+#volumeSettings {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 16px;
+  padding: 8px 12px;
+  border: 1px solid #1d466d;
+  border-radius: 0;
+  background-color: #08131e;
+  color: #74b3ee;
+  font-family: "JapaneseFont", "Yu Gothic", sans-serif;
+  font-size: 1rem;
+}
+
+#volumeSettings label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  white-space: nowrap;
+}
+
+#volumeSettings .volumeEnglish {
+  font-family: "Myfont", sans-serif;
+  font-size: 0.875rem;
+}
+
+#volumeControl {
+  -webkit-appearance: none;
+  appearance: none;
+  width: clamp(80px, 24vw, 140px);
+  height: 24px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+#volumeControl::-webkit-slider-runnable-track {
+  height: 6px;
+  border: 0;
+  border-radius: 0;
+  background: #1d466d;
+}
+
+#volumeControl::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  box-sizing: border-box;
+  width: 8px;
+  height: 18px;
+  margin-top: -6px;
+  border: 1px solid #b9ddff;
+  border-radius: 0;
+  background: #74b3ee;
+  box-shadow: none;
+}
+
+#volumeControl::-moz-range-track {
+  height: 6px;
+  border: 0;
+  border-radius: 0;
+  background: #1d466d;
+}
+
+#volumeControl::-moz-range-thumb {
+  box-sizing: border-box;
+  width: 8px;
+  height: 18px;
+  border: 1px solid #b9ddff;
+  border-radius: 0;
+  background: #74b3ee;
+  box-shadow: none;
+}
+
+#volumeControl:focus-visible {
+  outline: 2px solid #74b3ee;
+  outline-offset: 4px;
+  border-radius: 0;
+}
+
+#volumeValue {
+  min-width: 4ch;
+  text-align: right;
+  font-family: "Myfont", sans-serif;
+  font-size: 0.875rem;
+}
+/* 画面の横幅が600px以下のときに適用する */
+@media (max-width: 600px) {
+
+  /* 中央の画像を小さくする */
+  #MyButton {
+    width: 160px;
+  }
+
+  /* 音量バーの幅を短くする */
+  #volumeControl {
+    width: 100px;
+  }
+
+  /* 下のリンクを折り返せるようにする */
+  #credits {
+    flex-wrap: wrap;
+    white-space: normal;
+  }
 }
