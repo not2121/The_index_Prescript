@@ -2,7 +2,7 @@
 
 「人差し指」の指令をランダムに表示する、非公式のファンサイトです。
 
-▶ [サイトを開く](https://not2121.github.io/The_index_Prescript/)
+[サイトを開く](https://not2121.github.io/The_index_Prescript/)
 
 ## 使い方
 
