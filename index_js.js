@@ -5,12 +5,61 @@ const sound=document.getElementById("clickSound");
 const volumeControl = document.getElementById("volumeControl");
 const volumeValue = document.getElementById("volumeValue");
 const volumeStorageKey = "theIndex.clickSoundVolume";
+let audioContext;
+let volumeGain;
 
 function updateVolume(volume) {
-  sound.volume = volume / 100;
+  const level = volume / 100;
+  sound.muted = level === 0;
+
+  if (volumeGain) {
+    volumeGain.gain.setTargetAtTime(level, audioContext.currentTime, 0.01);
+  } else {
+    sound.volume = level;
+  }
+
   volumeControl.value = String(volume);
   volumeControl.setAttribute("aria-valuetext", `${volume}%`);
   volumeValue.value = `${volume}%`;
+}
+
+function playClickSound() {
+  try {
+    if (!audioContext) {
+      const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+      // file:// の直接プレビューでは、音声の読み込み制限を避けて従来の再生を使う。
+      const isLocalFile = window.location?.protocol === "file:";
+
+      if (AudioContextClass && !isLocalFile) {
+        // 最初のクリックで音の経路を作る。iOSでは volume の代わりに GainNode で調整する。
+        const context = new AudioContextClass();
+        const gain = context.createGain();
+        gain.gain.value = Number(volumeControl.value) / 100;
+        const source = context.createMediaElementSource(sound);
+        source.connect(gain);
+        gain.connect(context.destination);
+        audioContext = context;
+        volumeGain = gain;
+
+        // 音量調整を GainNode に任せ、二重に小さくならないようにする。
+        sound.volume = 1;
+        updateVolume(Number(volumeControl.value));
+      }
+    }
+
+    if (audioContext && audioContext.state !== "running") {
+      audioContext.resume().catch((error) => {
+        console.warn("Audio could not resume:", error);
+      });
+    }
+  } catch (error) {
+    console.warn("Web Audio could not be initialized:", error);
+  }
+
+  sound.currentTime = 0;
+  sound.play().catch((error) => {
+    console.warn("Click sound could not be played:", error);
+  });
 }
 
 let initialVolume = Number(volumeControl.value);
@@ -149,8 +198,7 @@ function createEffectText(targetText, revealedCount) {
 button.addEventListener("click", () => {
   clearInterval(effectTimer);
 
-  sound.currentTime = 0;
-  sound.play();
+  playClickSound();
 
   const textIndex =
     Math.floor(Math.random() * finalTexts.length);
