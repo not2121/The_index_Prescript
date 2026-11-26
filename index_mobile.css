@@ -1,0 +1,104 @@
+/* Mobile overrides. The media condition is declared on the link in index.html. */
+/* スマホでは縦に並べ、固定クレジット用の余白を下に確保する。 */
+body {
+  box-sizing: border-box;
+  min-height: 100svh;
+  flex-direction: column;
+  padding: 24px 16px;
+  padding-bottom: calc(12rem + env(safe-area-inset-bottom, 0px));
+  justify-content: flex-start;
+  line-height: 1.65;
+  letter-spacing: 0.04em;
+}
+
+body #englishMessage {
+  line-height: 1.0;
+  letter-spacing: 0.05em;
+  word-spacing: 0.12em;
+}
+
+body #japaneseMessage {
+  margin-top: 10px;
+  line-height: 1.9;
+  letter-spacing: 0.08em;
+}
+
+#volumeSettings label {
+  gap: 4px;
+  line-height: 1.4;
+}
+
+#topText {
+  position: static;
+  width: 100%;
+  transform: none;
+}
+
+/* 字体と大きさはPCと揃え、スマホで白くにじむ強い発光だけを抑える。 */
+#topText h1 {
+  text-shadow: 0 0 3px #0059a7;
+  animation: none;
+}
+
+#clickArea {
+  position: static;
+  width: 100%;
+  margin: clamp(96px, 18svh, 160px) auto 48px;
+  transform: none;
+}
+
+/* 中央の画像を小さくする */
+#MyButton {
+  width: 160px;
+  margin: 0 auto;
+}
+
+#message {
+  position: static;
+  width: 80%;
+  max-width: rem;
+  margin: 24px auto 0;
+  transform: none;
+  overflow-wrap: anywhere;
+}
+
+/* 音量バーの幅を短くする */
+#volumeControl {
+  width: 100px;
+}
+
+/* クレジットは指令文の長さにかかわらず画面下の中央に固定する。 */
+#credits {
+  position: fixed;
+  bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+  left: 50%;
+  width: 90%;
+  max-width: 23rem;
+  margin: 0;
+  padding: 8px 0;
+  transform: translateX(-50%);
+  justify-content: center;
+  text-align: center;
+  flex-wrap: wrap;
+  white-space: normal;
+  gap: 10px 16px;
+  font-size: 0.875rem;
+  line-height: 1.9;
+  background-color: #000;
+  z-index: 10;
+}
+
+/* スマホでは区切り文字を外し、各行の見えている文字を中央に揃える。 */
+#credits > span {
+  display: none;
+}
+
+#credits .social-link {
+  order: 0;
+}
+
+#credits .font-credit {
+  order: 1;
+  flex-basis: 100%;
+  max-width: 100%;
+}
