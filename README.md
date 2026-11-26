@@ -1,6 +1,6 @@
 # The Index Prescript Simulator
 
-「人差し指」の指令をランダムに表示する、非公式のファンサイトです。
+人差し指の指令をランダムに表示する、非公式のファンサイトです。
 
 [サイトを開く](https://not2121.github.io/The_index_Prescript/)
 
