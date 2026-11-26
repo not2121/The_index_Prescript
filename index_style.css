@@ -9,16 +9,11 @@
 body {
   #englishMessage {
   font-family: "Myfont", sans-serif;
-  line-height: 1.8;
-  letter-spacing: 0.05em;
-  word-spacing: 0.12em;
 }
 
 #japaneseMessage {
-  margin-top: 16px;
+  margin-top: 8px;
   font-family: "JapaneseFont", "Yu Gothic", sans-serif;
-  line-height: 1.9;
-  letter-spacing: 0.08em;
 }
     margin:0;
     min-height: 100vh;
@@ -27,8 +22,6 @@ body {
     align-items: center;
     background-color: black;
     font-family:"Myfont",sans-serif;
-    line-height: 1.65;
-    letter-spacing: 0.04em;
 }
     #MyButton {
         width:200px;
@@ -53,11 +46,10 @@ body {
   top: 100%;
   left: 50%;
   transform: translateX(-50%);
-  margin-top: 24px;
+  margin-top: 15px;
   width: max-content;
   max-width: 90vw;
   text-align: center;
-  overflow-wrap: anywhere;
 
 #englishMessage,
 #japaneseMessage {
@@ -82,7 +74,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 10px 16px;
+  gap: 8px;
 
   width: max-content;
   max-width: 90vw;
@@ -90,8 +82,7 @@ body {
   flex-wrap: nowrap;
 white-space: nowrap;
 
-  font-size: 0.875rem;
-  line-height: 1.9;
+  font-size: 12px;
 }
 
 #credits a {
@@ -154,8 +145,7 @@ white-space: nowrap;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 4px;
-  line-height: 1.4;
+  gap: 2px;
   white-space: nowrap;
 }
 
@@ -235,6 +225,25 @@ white-space: nowrap;
     min-height: 100svh;
     flex-direction: column;
     padding: 24px 16px;
+    line-height: 1.65;
+    letter-spacing: 0.04em;
+  }
+
+  body #englishMessage {
+    line-height: 1.8;
+    letter-spacing: 0.05em;
+    word-spacing: 0.12em;
+  }
+
+  body #japaneseMessage {
+    margin-top: 16px;
+    line-height: 1.9;
+    letter-spacing: 0.08em;
+  }
+
+  #volumeSettings label {
+    gap: 4px;
+    line-height: 1.4;
   }
 
   #topText {
@@ -262,6 +271,7 @@ white-space: nowrap;
     max-width: 36rem;
     margin: 24px auto 0;
     transform: none;
+    overflow-wrap: anywhere;
   }
 
   /* 音量バーの幅を短くする */
@@ -278,5 +288,8 @@ white-space: nowrap;
     transform: none;
     flex-wrap: wrap;
     white-space: normal;
+    gap: 10px 16px;
+    font-size: 0.875rem;
+    line-height: 1.9;
   }
 }
