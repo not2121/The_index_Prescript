@@ -2,10 +2,10 @@
 /* スマホでは縦に並べ、固定クレジット用の余白を下に確保する。 */
 body {
   box-sizing: border-box;
-  min-height: 100svh;
+  min-height: 120svh;
   flex-direction: column;
   padding: 24px 16px;
-  padding-bottom: calc(12rem + env(safe-area-inset-bottom, 0px));
+  padding-bottom: 24px;
   justify-content: flex-start;
   line-height: 1.65;
   letter-spacing: 0.04em;
@@ -60,6 +60,7 @@ body #japaneseMessage {
   margin: 24px auto 0;
   transform: none;
   overflow-wrap: anywhere;
+  min-height: 24rem;
 }
 
 /* 音量バーの幅を短くする */
@@ -69,14 +70,12 @@ body #japaneseMessage {
 
 /* クレジットは指令文の長さにかかわらず画面下の中央に固定する。 */
 #credits {
-  position: fixed;
-  bottom: calc(16px + env(safe-area-inset-bottom, 0px));
-  left: 50%;
+  position: static;
   width: 90%;
   max-width: 23rem;
-  margin: 0;
+  margin: auto auto 0;
   padding: 8px 0;
-  transform: translateX(-50%);
+  transform: none;
   justify-content: center;
   text-align: center;
   flex-wrap: wrap;
